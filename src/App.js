@@ -18,8 +18,18 @@ class App extends Component {
         new BotUser("Rhett Botler", "online", "avatar", this.handleSubmit),
         new BotUser("Bot Blaine", "online", "avatar", this.handleSubmit),
         new BotUser("Travis Botle", "away", "avatar", this.handleSubmit),
-        new BotUser("Lt. Col. Bot Kilgore", "playing", "avatar", this.handleSubmit),
-        new BotUser("Dr. Hannibot Lecter", "offline", "avatar", this.handleSubmit)
+        new BotUser(
+          "Lt. Col. Bot Kilgore",
+          "playing",
+          "avatar",
+          this.handleSubmit
+        ),
+        new BotUser(
+          "Dr. Hannibot Lecter",
+          "offline",
+          "avatar",
+          this.handleSubmit
+        )
       ]
     };
   }
@@ -56,10 +66,6 @@ class App extends Component {
     });
   };
 
-  handlePresenceMsg = () => {
-
-  };
-
   getCurrentTime = () => {
     let date = new Date();
     let hour = date.getHours();
@@ -74,7 +80,6 @@ class App extends Component {
   };
 
   render() {
-
     let messages = this.state.messages.map(msg => {
       return (
         <ChatMessage

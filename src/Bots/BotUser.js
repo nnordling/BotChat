@@ -9,8 +9,8 @@ export default class BotUser {
 
     this.sendMsg();
 
-    setInterval(this.changePresence,10000)
-  };
+    setInterval(this.changePresence, 10000);
+  }
 
   getRandomIntervalTime = () => {
     let min = 5000;
@@ -19,7 +19,7 @@ export default class BotUser {
   };
 
   // Get random number for presence switcher
-  getRandomInt = (number) => {
+  getRandomInt = number => {
     return Math.floor(Math.random() * Math.floor(number));
   };
 
@@ -36,21 +36,21 @@ export default class BotUser {
 
   goOnline = () => {
     this.presence = "online";
-    this.botSubmit(this.name, this.name+" has come online");
+    this.botSubmit(this.name, this.name + " has come online");
     this.sendMsg();
   };
 
   playGame = () => {
-    this.presence = "playing"
+    this.presence = "playing";
   };
 
   awayFromKeyboard = () => {
-    this.presence = "away"
+    this.presence = "away";
   };
 
   goOffline = () => {
     this.presence = "offline";
-    this.botSubmit(this.name, this.name+" has gone offline");
+    this.botSubmit(this.name, this.name + " has gone offline");
   };
 
   changePresence = () => {
@@ -58,35 +58,35 @@ export default class BotUser {
     if (this.presence === "online") {
       random = this.getRandomInt(12);
       if (random === 1) {
-        this.playGame()
+        this.playGame();
       } else if (random === 2) {
-        this.awayFromKeyboard()
-      }  else if (random === 3) {
-        this.goOffline()
+        this.awayFromKeyboard();
+      } else if (random === 3) {
+        this.goOffline();
       }
     } else if (this.presence === "away") {
       random = this.getRandomInt(10);
       if (random <= 3) {
-        this.goOnline()
+        this.goOnline();
       } else if (random === 4) {
-        this.playGame()
+        this.playGame();
       } else if (random === 5) {
-        this.goOffline()
+        this.goOffline();
       }
     } else if (this.presence === "playing") {
       random = this.getRandomInt(10);
-      if (random  <= 3) {
-        this.goOnline()
+      if (random <= 3) {
+        this.goOnline();
       } else if (random === 4) {
-        this.awayFromKeyboard()
+        this.awayFromKeyboard();
       } else if (random === 5) {
-        this.goOffline()
+        this.goOffline();
       }
     } else if (this.presence === "offline") {
       random = this.getRandomInt(10);
       if (random <= 4) {
-        this.goOnline()
+        this.goOnline();
       }
     }
-  }
+  };
 }
