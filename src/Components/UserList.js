@@ -4,7 +4,7 @@ import avatar from '../images/avatar.png'
 export default class UserList extends Component {
   render() {
     let users = this.props.users.map((user, i) => {
-      return <div key={i}>
+      return <div className="user" key={i}>
         <div className="userAvatar">
           <img src={avatar} alt="avatar" height={32} width={32}/>
         </div>
@@ -20,7 +20,7 @@ export default class UserList extends Component {
       <div className={"userList"}>
         <div className={"userListTitle"}>Users</div>
         <div>
-          <div>{users}</div>
+          {users}
         </div>
       </div>
     );

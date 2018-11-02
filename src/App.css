@@ -15,6 +15,7 @@ hr {
 #chatWindow {
   height: 90vh;
   overflow-y: scroll;
+  border-radius: 0 .75rem .75rem 0;
 }
 
 .chatMessageCard {
@@ -69,8 +70,11 @@ hr {
 
 .userAvatar {
   display: inline-block;
-  align-content: unset;
   padding-right: .5rem;
+}
+
+.userAvatar img {
+  vertical-align: unset;
 }
 
 .userInfo {
