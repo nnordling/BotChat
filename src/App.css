@@ -1,6 +1,6 @@
 .App {
   height: 100%;
-  font-family: 'Raleway', sans-serif;
+  font-family: "Raleway", sans-serif;
 }
 
 hr {
@@ -9,13 +9,15 @@ hr {
 
 .chatApp {
   border: solid #2d5986;
-  border-radius: .75rem;
+  border-radius: 0.75rem;
 }
+
+/* MESSAGES */
 
 #chatWindow {
   height: 90vh;
   overflow-y: scroll;
-  border-radius: 0 .75rem .75rem 0;
+  border-radius: 0 0.75rem 0.75rem 0;
 }
 
 .chatMessageCard {
@@ -47,12 +49,27 @@ hr {
   padding: 10px;
 }
 
+/* USERS */
+
+.users {
+  height: 90vh;
+  overflow-y: scroll;
+}
+
+.addUserField {
+  position: relative;
+}
+
+.addUserBtn {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
 .userList {
   background-color: #2d5986;
   color: #fff;
-  height: 90vh;
-  padding: .5rem;
-  overflow-y: scroll;
+  padding: 0.5rem;
 }
 
 .userListTitle {
@@ -70,7 +87,7 @@ hr {
 
 .userAvatar {
   display: inline-block;
-  padding-right: .5rem;
+  padding-right: 0.5rem;
 }
 
 .userAvatar img {
@@ -109,9 +126,17 @@ hr {
   margin-bottom: 0;
 }
 
-@media (max-width:768px) {
+/* ADD USER */
+
+.addUserField {
+  background-color: #2d5986;
+}
+
+
+/* RESPONSIVE */
+
+@media (max-width: 768px) {
   .userAvatar {
     display: none;
   }
 }
-
