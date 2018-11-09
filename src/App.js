@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import ChatInput from "./Components/ChatInput";
 import ChatMessage from "./Components/ChatMessage";
 import UserList from "./Components/UserList";
-import AddUser from "./Components/AddUser"
 import BotUser from "./Bots/BotUser";
 
 import "./App.css";
@@ -17,21 +16,11 @@ class App extends Component {
       messages: [],
       showModal: false,
       users: [
-        new BotUser("Rhett Botler", "online", "avatar", this.handleSubmit),
-        new BotUser("Bot Blaine", "online", "avatar", this.handleSubmit),
-        new BotUser("Travis Botle", "away", "avatar", this.handleSubmit),
-        new BotUser(
-          "Lt. Col. Bot Kilgore",
-          "playing",
-          "avatar",
-          this.handleSubmit
-        ),
-        new BotUser(
-          "Dr. Hannibot Lecter",
-          "offline",
-          "avatar",
-          this.handleSubmit
-        )
+        new BotUser("Botler", "online", "avatar", this.handleSubmit),
+        new BotUser("Bot1337", "online", "avatar", this.handleSubmit),
+        new BotUser("Botboy", "away", "avatar", this.handleSubmit),
+        new BotUser("Kilbot", "playing", "avatar", this.handleSubmit),
+        new BotUser("Hannibot", "offline", "avatar", this.handleSubmit)
       ]
     };
   }
@@ -72,7 +61,7 @@ class App extends Component {
     let user = new BotUser(name, presence, avatar, this.handleSubmit);
     let users = this.state.users;
     users.push(user);
-    this.setState({users: users});
+    this.setState({ users: users });
   };
 
   getCurrentTime = () => {
@@ -107,8 +96,10 @@ class App extends Component {
           <div className="row chatApp">
             <div className="col-3 pl-0 pr-0">
               <div className="users">
-                <AddUser handleUser={this.handleNewUser}/>
-                <UserList users={this.state.users} />
+                <UserList
+                  users={this.state.users}
+                  handleUser={this.handleNewUser}
+                />
               </div>
             </div>
             <div className="col-9 pl-0 pr-0">

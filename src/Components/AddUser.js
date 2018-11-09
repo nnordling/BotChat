@@ -8,8 +8,12 @@ export default class AddUser extends Component {
   render() {
     return (
       <div className="addUserField">
-        <div className="userListTitle">Users</div>
-        <button className="btn btn-primary btn-sm addUserBtn" onClick={this.handleUser}>Add User</button>
+        <button
+          className="btn btn-outline-light btn-sm"
+          onClick={this.handleUser}
+        >
+          Add User
+        </button>
       </div>
     );
   }

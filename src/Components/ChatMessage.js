@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 
 export default class ChatMessage extends Component {
-  shouldComponentUpdate(nextProps) {
+  /*shouldComponentUpdate(nextProps) {
     let userChanged = nextProps.user !== this.props.user;
     let inputChanged = nextProps.input !== this.props.input;
     let timeChanged = nextProps.time !== this.props.time;
 
     return userChanged || timeChanged || inputChanged;
-  }
+  }*/
 
   render() {
     return (
