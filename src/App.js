@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import ChatInput from "./Components/ChatInput";
 import ChatMessage from "./Components/ChatMessage";
-import UserList from "./Components/UserList";
+import Users from "./Components/Users";
 import BotUser from "./Bots/BotUser";
 
 import "./App.css";
@@ -57,11 +57,12 @@ class App extends Component {
     });
   };
 
-  handleNewUser = (name, presence, avatar) => {
-    let user = new BotUser(name, presence, avatar, this.handleSubmit);
+  handleNewUser = (name, presence) => {
+    let user = new BotUser(name, presence, "avatar", this.handleSubmit);
     let users = this.state.users;
     users.push(user);
     this.setState({ users: users });
+    console.log(this.state.users);
   };
 
   getCurrentTime = () => {
@@ -96,7 +97,7 @@ class App extends Component {
           <div className="row chatApp">
             <div className="col-3 pl-0 pr-0">
               <div className="users">
-                <UserList
+                <Users
                   users={this.state.users}
                   handleUser={this.handleNewUser}
                 />

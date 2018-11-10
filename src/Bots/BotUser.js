@@ -84,9 +84,8 @@ export default class BotUser {
       }
     } else if (this.presence === "offline") {
       random = this.getRandomInt(10);
-      if (random <= 4) {
-        this.goOnline();
-      }
+
+      return random <= 4 ? this.goOnline() : false
     }
   };
 }

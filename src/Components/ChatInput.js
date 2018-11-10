@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 export default class ChatInput extends Component {
-  handleInput(e) {
+  handleInput = (e) => {
     if (this.refs.message.value === "") {
       alert("Invalid input");
     } else {
@@ -9,11 +9,11 @@ export default class ChatInput extends Component {
       this.refs.message.value = "";
     }
     e.preventDefault();
-  }
+  };
 
   render() {
     return (
-      <form onSubmit={this.handleInput.bind(this)}>
+      <form onSubmit={this.handleInput}>
         <div className="input-group mb-3 form chatInput">
           <input
             type="text"
