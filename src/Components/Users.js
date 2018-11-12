@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
-import UserList from "./UserList"
-import AddUser from "./AddUser"
+import UserList from "./UserList";
+import AddUser from "./AddUser";
 
 export default class Users extends Component {
   render() {
@@ -47,7 +47,8 @@ export default class Users extends Component {
         </div>
 
         <div className={"userListField"}>
-          <AddUser handleUser={this.props.handleUser}/>
+          <AddUser handleUser={this.props.handleUser} />
+          <UserList users={this.props.users} />
         </div>
       </div>
     );

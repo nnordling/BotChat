@@ -1,13 +1,9 @@
 import React, { Component } from "react";
 
 export default class ChatInput extends Component {
-  handleInput = (e) => {
-    if (this.refs.message.value === "") {
-      alert("Invalid input");
-    } else {
-      this.props.handleInput("Admin", this.refs.message.value);
-      this.refs.message.value = "";
-    }
+  handleInput = e => {
+    this.props.handleInput("Admin", this.refs.message.value);
+    this.refs.message.value = "";
     e.preventDefault();
   };
 
@@ -22,6 +18,7 @@ export default class ChatInput extends Component {
             aria-label="Message"
             aria-describedby="basic-addon2"
             ref={"message"}
+            required={true}
           />
           <div className="input-group-append">
             <button className="btn btn-outline-secondary" type="submit">

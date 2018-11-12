@@ -36,7 +36,6 @@ export default class BotUser {
 
   goOnline = () => {
     this.presence = "online";
-    this.botSubmit(this.name, this.name + " has come online");
     this.sendMsg();
   };
 
@@ -85,7 +84,10 @@ export default class BotUser {
     } else if (this.presence === "offline") {
       random = this.getRandomInt(10);
 
-      return random <= 4 ? this.goOnline() : false
+      if (random <= 4) {
+        this.goOnline();
+        this.botSubmit(this.name, this.name + " has come online");
+      }
     }
   };
 }

@@ -4,26 +4,17 @@ import ChatMessage from "./Components/ChatMessage";
 import Users from "./Components/Users";
 import BotUser from "./Bots/BotUser";
 
+import { observer } from "mobx-react";
+import { observable, action } from "mobx";
+
 import "./App.css";
 
 let messageKey = 0;
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      messages: [],
-      showModal: false,
-      users: [
-        new BotUser("Botler", "online", "avatar", this.handleSubmit),
-        new BotUser("Bot1337", "online", "avatar", this.handleSubmit),
-        new BotUser("Botboy", "away", "avatar", this.handleSubmit),
-        new BotUser("Kilbot", "playing", "avatar", this.handleSubmit),
-        new BotUser("Hannibot", "offline", "avatar", this.handleSubmit)
-      ]
-    };
-  }
+  messages = observable.array();
+  users = observable.array();
+  shouldScrollDown = true;
 
   scrollToNewMessage = () => {
     let element = document.getElementById("chatWindow");
@@ -38,32 +29,26 @@ class App extends Component {
     return diff < 10 && diff > -10;
   };
 
-  handleSubmit = (user, input, time, msgKey) => {
+  handleSubmit = action((user, input, time, msgKey) => {
     time = this.getCurrentTime();
     msgKey = messageKey++;
-    let messages = this.state.messages;
+    let messages = this.messages;
 
     if (messages.length >= 100) {
       messages.shift();
     }
 
-    const shouldScrollDown = this.shouldAutoScrollDown();
+    this.shouldScrollDown = this.shouldAutoScrollDown();
 
     messages.push({ user, input, time, msgKey });
-    this.setState({ messages: messages }, () => {
-      if (shouldScrollDown) {
-        this.scrollToNewMessage();
-      }
-    });
-  };
+  });
 
-  handleNewUser = (name, presence) => {
+  handleNewUser = action((name, presence) => {
     let user = new BotUser(name, presence, "avatar", this.handleSubmit);
-    let users = this.state.users;
+    let users = this.users;
     users.push(user);
-    this.setState({ users: users });
-    console.log(this.state.users);
-  };
+    console.log(this.users)
+  });
 
   getCurrentTime = () => {
     let date = new Date();
@@ -78,8 +63,17 @@ class App extends Component {
     return hour + ":" + min + ":" + sec;
   };
 
+  componentDidUpdate() {
+    if (this.shouldScrollDown) {
+      this.scrollToNewMessage();
+      this.shouldScrollDown = false;
+    }
+  }
+
   render() {
-    let messages = this.state.messages.map(msg => {
+
+
+    let messages = this.messages.map(msg => {
       return (
         <ChatMessage
           key={msg.msgKey}
@@ -97,10 +91,7 @@ class App extends Component {
           <div className="row chatApp">
             <div className="col-3 pl-0 pr-0">
               <div className="users">
-                <Users
-                  users={this.state.users}
-                  handleUser={this.handleNewUser}
-                />
+                <Users users={this.users} handleUser={this.handleNewUser} />
               </div>
             </div>
             <div className="col-9 pl-0 pr-0">
@@ -118,4 +109,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default observer(App);
