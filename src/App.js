@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import ChatInput from "./Components/ChatInput";
-import ChatMessage from "./Components/ChatMessage";
+import MessageList from "./Components/MessageList"
 import Users from "./Components/Users";
 import BotUser from "./Bots/BotUser";
 
@@ -41,6 +41,7 @@ class App extends Component {
     this.shouldScrollDown = this.shouldAutoScrollDown();
 
     messages.push({ user, input, time, msgKey });
+    console.log(messages);
   });
 
   handleNewUser = action((name, presence) => {
@@ -71,20 +72,6 @@ class App extends Component {
   }
 
   render() {
-
-
-    let messages = this.messages.map(msg => {
-      return (
-        <ChatMessage
-          key={msg.msgKey}
-          user={msg.user}
-          time={msg.time}
-          input={msg.input}
-          id={msg.msgKey}
-        />
-      );
-    });
-
     return (
       <div className="App">
         <div className="container">
@@ -95,7 +82,7 @@ class App extends Component {
               </div>
             </div>
             <div className="col-9 pl-0 pr-0">
-              <div id="chatWindow">{messages}</div>
+              <MessageList messages={this.messages}/>
             </div>
           </div>
           <div className="row">
