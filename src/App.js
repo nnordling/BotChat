@@ -14,20 +14,6 @@ let messageKey = 0;
 class App extends Component {
   messages = observable.array();
   users = observable.array();
-  shouldScrollDown = true;
-
-  scrollToNewMessage = () => {
-    let element = document.getElementById("chatWindow");
-    element.scrollTop = element.scrollHeight;
-  };
-
-  shouldAutoScrollDown = () => {
-    let element = document.getElementById("chatWindow");
-    const diff =
-      element.scrollTop - (element.scrollHeight - element.clientHeight);
-
-    return diff < 10 && diff > -10;
-  };
 
   handleSubmit = action((user, input, time, msgKey) => {
     time = this.getCurrentTime();
@@ -38,17 +24,13 @@ class App extends Component {
       messages.shift();
     }
 
-    this.shouldScrollDown = this.shouldAutoScrollDown();
-
     messages.push({ user, input, time, msgKey });
-    console.log(messages);
   });
 
   handleNewUser = action((name, presence) => {
     let user = new BotUser(name, presence, "avatar", this.handleSubmit);
     let users = this.users;
     users.push(user);
-    console.log(this.users)
   });
 
   getCurrentTime = () => {
@@ -63,13 +45,6 @@ class App extends Component {
 
     return hour + ":" + min + ":" + sec;
   };
-
-  componentDidUpdate() {
-    if (this.shouldScrollDown) {
-      this.scrollToNewMessage();
-      this.shouldScrollDown = false;
-    }
-  }
 
   render() {
     return (
