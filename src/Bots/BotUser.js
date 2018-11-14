@@ -1,93 +1,77 @@
+import { observable, action, reaction } from "mobx";
+
 import BotInputs from "./BotInputs";
 
-export default class BotUser {
+class BotUser {
+  _presence = observable.box();
+
   constructor(name, presence, avatar, botSubmit) {
     this.name = name;
-    this.presence = presence;
+    this._presence.set(presence);
     this.avatar = avatar;
     this.botSubmit = botSubmit;
 
     this.sendMsg();
+    this.changePresence();
 
-    setInterval(this.changePresence, 10000);
+    reaction(
+      () => this.presence,
+      presence => {
+        if (presence === "online") {
+          this.botSubmit(this.name, this.name + " has come online");
+        } else if (presence === "offline") {
+          this.botSubmit(this.name, this.name + " has gone offline");
+        }
+      }
+    );
   }
 
-  getRandomIntervalTime = () => {
+  getRandomMessageTime = () => {
     let min = 5000;
     let max = 25000;
     return Math.random() * (max - min) + min;
   };
 
-  // Get random number for presence switcher
-  getRandomInt = number => {
-    return Math.floor(Math.random() * Math.floor(number));
+  getRandomPresenceTime = () => {
+    let min = 30000;
+    let max = 120000;
+    return Math.random() * (max - min) + min;
   };
 
   sendMsg = () => {
     let botInputs = new BotInputs();
 
-    if (this.presence === "online") {
-      setTimeout(() => {
+    setTimeout(() => {
+      if (this.presence === "online") {
         this.botSubmit(this.name, botInputs.getInputs());
-        this.sendMsg();
-      }, this.getRandomIntervalTime());
-    }
+      }
+      this.sendMsg();
+    }, this.getRandomMessageTime());
   };
 
-  goOnline = () => {
-    this.presence = "online";
-    this.sendMsg();
-  };
+  get presence() {
+    return this._presence.get();
+  }
 
-  playGame = () => {
-    this.presence = "playing";
-  };
-
-  awayFromKeyboard = () => {
-    this.presence = "away";
-  };
-
-  goOffline = () => {
-    this.presence = "offline";
-    this.botSubmit(this.name, this.name + " has gone offline");
-  };
+  set presence(presence) {
+    this._presence.set(presence);
+  }
 
   changePresence = () => {
-    let random;
-    if (this.presence === "online") {
-      random = this.getRandomInt(12);
-      if (random === 1) {
-        this.playGame();
-      } else if (random === 2) {
-        this.awayFromKeyboard();
-      } else if (random === 3) {
-        this.goOffline();
-      }
-    } else if (this.presence === "away") {
-      random = this.getRandomInt(10);
-      if (random <= 3) {
-        this.goOnline();
-      } else if (random === 4) {
-        this.playGame();
-      } else if (random === 5) {
-        this.goOffline();
-      }
-    } else if (this.presence === "playing") {
-      random = this.getRandomInt(10);
-      if (random <= 3) {
-        this.goOnline();
-      } else if (random === 4) {
-        this.awayFromKeyboard();
-      } else if (random === 5) {
-        this.goOffline();
-      }
-    } else if (this.presence === "offline") {
-      random = this.getRandomInt(10);
-
-      if (random <= 4) {
-        this.goOnline();
-        this.botSubmit(this.name, this.name + " has come online");
-      }
-    }
+    setTimeout(
+      action(() => {
+        let presences = ["online", "playing", "offline", "away"];
+        let newPresence = presences.filter(
+          oldPres => oldPres !== this.presence
+        );
+        let randomPresence =
+          newPresence[Math.floor(Math.random() * newPresence.length)];
+        this.presence = randomPresence;
+        this.changePresence();
+      }),
+      this.getRandomPresenceTime()
+    );
   };
 }
+
+export default BotUser;

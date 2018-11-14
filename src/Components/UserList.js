@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import {observer} from "mobx-react"
+import { observer } from "mobx-react";
 import avatar from "../images/avatar.png";
 
 class UserList extends Component {
@@ -18,11 +18,7 @@ class UserList extends Component {
         </div>
       );
     });
-    return (
-      <div>
-        {users}
-      </div>
-    );
+    return <div>{users}</div>;
   }
 }
 

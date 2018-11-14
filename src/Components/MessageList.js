@@ -1,7 +1,7 @@
-import React, {Component} from 'react'
-import {observer} from 'mobx-react'
+import React, { Component } from "react";
+import { observer } from "mobx-react";
 
-import ChatMessage from './ChatMessage'
+import ChatMessage from "./ChatMessage";
 
 class MessageList extends Component {
   render() {
@@ -16,12 +16,8 @@ class MessageList extends Component {
         />
       );
     });
-    return (
-      <div id="chatWindow">
-        {messages}
-      </div>
-    );
+    return <div id="chatWindow">{messages}</div>;
   }
 }
 
-export default observer(MessageList)
+export default observer(MessageList);
